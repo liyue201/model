@@ -25,11 +25,13 @@ type Token struct {
 	ContractTokenId      int64        `json:"contractTokenId,omitempty" bson:"contractTokenId"`
 	// mandatory: true. Token name
 	Name         string               `json:"name,omitempty" bson:"name"`
+	// mandatory: false. Token currency. for ERC20/1155
+	Currency  *string               `json:"currency,omitempty" bson:"currency"`
 	// mandatory: true. Token Standard
 	Standard     TokenStandardEnum    `json:"standard,omitempty" bson:"standard"`
 	// mandatory: false. if the token is bind with a community.
 	CommunityId *primitive.ObjectID `json:"communityId,omitempty" bson:"communityId"`
-	// mandatory: true. Decimals exponent for token transaction. 0 for ERC20 and ERC1155
+	// mandatory: true. Decimals exponent for token transaction. 0 for ERC721 and ERC1155
 	Decimals     int                  `json:"decimals,omitempty" bson:"decimals"`
 	// mandatory: true. total supply for this token. 1 for ERC721
 	TotalSupply  primitive.Decimal128 `json:"totalSupply,omitempty" bson:"totalSupply"`
