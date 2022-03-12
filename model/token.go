@@ -60,4 +60,6 @@ type NftMetaData struct {
 	MintBy      primitive.ObjectID `json:"mintBy,omitempty" bson:"mintBy"`
 	// mandatory: false. only used for ERC721
 	Owner	 *primitive.ObjectID `json:"owner,omitempty" bson:"owner"`
+	// mandatory: false. for extra metadata, store json in value if needed.
+	ExtraData   map[string]string  `json:"extraData,omitempty" bson:"extraData"`
 }
