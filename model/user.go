@@ -1,10 +1,9 @@
 package model
 
 import (
-	"fmt"
+	"context"
 	"github.com/Overealityio/overeality-server-model/util"
 	"github.com/kamva/mgm/v3"
-	"github.com/pkg/errors"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo/options"
@@ -81,38 +80,32 @@ func (u *User) Creating() error {
 	return nil
 }
 
-func (u *User) GetByID(id primitive.ObjectID) error {
-	err := mgm.Coll(u).FindByID(id, u)
-	if err != nil {
-		return fmt.Errorf("get err while query User %s", err.Error())
-	}
-	return nil
-}
-
-func (u *User) GetUserByEmail(email string) error {
-	coll := mgm.Coll(u)
-	err := coll.First(bson.M{"email": email}, u)
-	if err != nil {
-		return errors.Errorf("get err while query user. Err: %s", err.Error())
-	}
-	return nil
-}
-
-func (u *User) GetUserByPublicKey(publicKey string) error {
-	coll := mgm.Coll(u)
-	err := coll.First(bson.M{"publicKey": publicKey}, u)
+func (u *User) GetByID(ctx context.Context, id primitive.ObjectID) error {
+	err := mgm.Coll(u).FindByIDWithCtx(ctx, id, u)
 	return err
 }
 
-func (u *User) UpdateUserLastLoginTime() error {
+func (u *User) GetUserByEmail(ctx context.Context, email string) error {
+	coll := mgm.Coll(u)
+	err := coll.FirstWithCtx(ctx, bson.M{"email": email}, u)
+	return err
+}
+
+func (u *User) GetUserByPublicKey(ctx context.Context, publicKey string) error {
+	coll := mgm.Coll(u)
+	err := coll.FirstWithCtx(ctx, bson.M{"publicKey": publicKey}, u)
+	return err
+}
+
+func (u *User) UpdateUserLastLoginTime(ctx context.Context) error {
 	u.LastLoginTime = time.Now().Unix()
 	opt := &options.UpdateOptions{}
 	opt.SetUpsert(false)
-	err := mgm.Coll(u).Update(u, opt)
+	err := mgm.Coll(u).UpdateWithCtx(ctx, u, opt)
 	return err
 }
 
-func (u *User) PublicKeyLoginProcess() error {
+func (u *User) PublicKeyLoginProcess(ctx context.Context) error {
 	u.VerificationCode = ""
 	u.LastLoginTime = time.Now().Unix()
 	if u.ReferenceCode == "" {
@@ -122,24 +115,24 @@ func (u *User) PublicKeyLoginProcess() error {
 	}
 	opt := &options.UpdateOptions{}
 	opt.SetUpsert(false)
-	err := mgm.Coll(u).Update(u, opt)
+	err := mgm.Coll(u).UpdateWithCtx(ctx, u, opt)
 	return err
 }
 
-func (u *User) Update() error {
+func (u *User) Update(ctx context.Context) error {
 	opt := &options.UpdateOptions{}
 	opt.SetUpsert(false)
-	return mgm.Coll(u).Update(u, opt)
+	return mgm.Coll(u).UpdateWithCtx(ctx, u, opt)
 }
 
-func ListUsers(skip, limit int64, filter interface{}, order interface{}) (users []User, err error) {
-	users = []User{}
+func ListUsers(ctx context.Context, skip, limit int64, filter interface{}, order interface{}) ([]*User, error) {
+	var users []*User
 	opt := &options.FindOptions{}
 	opt.SetSkip(skip)
 	opt.SetLimit(limit)
 	opt.SetSort(order)
-	err = mgm.Coll(&User{}).SimpleFind(&users, filter, opt)
-	return
+	err := mgm.Coll(&User{}).SimpleFindWithCtx(ctx, &users, filter, opt)
+	return users, err
 }
 
 func CountUsers(filter interface{}) (count int64, err error) {

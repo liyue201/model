@@ -1,8 +1,10 @@
 package model
 
 import (
+	"context"
 	"github.com/kamva/mgm/v3"
 	"go.mongodb.org/mongo-driver/bson/primitive"
+	"go.mongodb.org/mongo-driver/mongo/options"
 	"time"
 )
 
@@ -24,4 +26,27 @@ type TokenAccount struct {
 	CreatedAt   *time.Time         `json:"createdAt,omitempty" bson:"createdAt"`
 	// mandatory: true. update time of this token.
 	UpdatedAt   *time.Time         `json:"updatedAt,omitempty" bson:"updatedAt"`
+}
+
+func (a *TokenAccount) CollectionName() string {
+	return "token_accounts"
+}
+
+func ListTokenAccounts(ctx context.Context, skip, limit int64, filter interface{}, order interface{}) ([]*TokenAccount, error) {
+	var ts []*TokenAccount
+	opt := &options.FindOptions{}
+	opt.SetSkip(skip)
+	opt.SetLimit(limit)
+	opt.SetSort(order)
+	err := mgm.Coll(&TokenAccount{}).SimpleFindWithCtx(ctx, &ts, filter, opt)
+	return ts, err
+}
+
+func CountTokenAccounts(filter interface{}) (count int64, err error) {
+	return mgm.Coll(&TokenAccount{}).CountDocuments(mgm.Ctx(), filter)
+}
+
+func (a *TokenAccount) GetByID(ctx context.Context, id primitive.ObjectID) error {
+	err := mgm.Coll(a).FindByIDWithCtx(ctx, id, a)
+	return err
 }

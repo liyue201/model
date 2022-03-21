@@ -1,8 +1,10 @@
 package model
 
 import (
+	"context"
 	"github.com/kamva/mgm/v3"
 	"go.mongodb.org/mongo-driver/bson/primitive"
+	"go.mongodb.org/mongo-driver/mongo/options"
 	"time"
 )
 
@@ -68,4 +70,22 @@ type BalanceState struct {
 	After       primitive.Decimal128 `json:"after,omitempty" bson:"after"`
 	// mandatory: true. Id for token stored in mongodb
 	Token      primitive.ObjectID   `json:"token,omitempty" bson:"token"`
+}
+
+func ListTransactions(ctx context.Context, skip, limit int64, filter interface{}, order interface{}) ([]*Transaction, error) {
+	var ts []*Transaction
+	opt := &options.FindOptions{}
+	opt.SetSkip(skip)
+	opt.SetLimit(limit)
+	opt.SetSort(order)
+	err := mgm.Coll(&Transaction{}).SimpleFindWithCtx(ctx, &ts, filter, opt)
+	return ts, err
+}
+
+func CountTransactions(filter interface{}) (count int64, err error) {
+	return mgm.Coll(&Transaction{}).CountDocuments(mgm.Ctx(), filter)
+}
+
+func (t *Transaction) CollectionName() string {
+	return "transactions"
 }

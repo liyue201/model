@@ -1,8 +1,10 @@
 package model
 
 import (
+	"context"
 	"github.com/kamva/mgm/v3"
 	"go.mongodb.org/mongo-driver/bson/primitive"
+	"go.mongodb.org/mongo-driver/mongo/options"
 	"time"
 )
 
@@ -62,4 +64,22 @@ type NftMetaData struct {
 	Owner	 *primitive.ObjectID `json:"owner,omitempty" bson:"owner"`
 	// mandatory: false. for extra metadata, store json in value if needed.
 	ExtraData   map[string]string  `json:"extraData,omitempty" bson:"extraData"`
+}
+
+func ListTokens(ctx context.Context, skip, limit int64, filter interface{}, order interface{}) ([]*Token, error) {
+	var ts []*Token
+	opt := &options.FindOptions{}
+	opt.SetSkip(skip)
+	opt.SetLimit(limit)
+	opt.SetSort(order)
+	err := mgm.Coll(&Token{}).SimpleFindWithCtx(ctx, &ts, filter, opt)
+	return ts, err
+}
+
+func CountTokens(filter interface{}) (count int64, err error) {
+	return mgm.Coll(&Token{}).CountDocuments(mgm.Ctx(), filter)
+}
+
+func (t *Token) CollectionName() string {
+	return "tokens"
 }
