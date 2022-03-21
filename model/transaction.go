@@ -89,3 +89,8 @@ func CountTransactions(filter interface{}) (count int64, err error) {
 func (t *Transaction) CollectionName() string {
 	return "transactions"
 }
+
+func (t *Transaction) GetByID(ctx context.Context, id primitive.ObjectID) error {
+	err := mgm.Coll(t).FindByIDWithCtx(ctx, id, t)
+	return err
+}
