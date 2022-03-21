@@ -4,6 +4,8 @@ go 1.17
 
 require (
 	github.com/kamva/mgm/v3 v3.4.1
+	github.com/pkg/errors v0.9.1
+	github.com/sony/sonyflake v1.0.0
 	go.mongodb.org/mongo-driver v1.8.3
 )
 
@@ -13,7 +15,6 @@ require (
 	github.com/golang/snappy v0.0.1 // indirect
 	github.com/jinzhu/inflection v1.0.0 // indirect
 	github.com/klauspost/compress v1.13.6 // indirect
-	github.com/pkg/errors v0.9.1 // indirect
 	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/stretchr/testify v1.6.1 // indirect
 	github.com/xdg-go/pbkdf2 v1.0.0 // indirect

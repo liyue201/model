@@ -1,8 +1,13 @@
 package model
 
 import (
+	"fmt"
+	"github.com/Overealityio/overeality-server-model/util"
 	"github.com/kamva/mgm/v3"
+	"github.com/pkg/errors"
+	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
+	"go.mongodb.org/mongo-driver/mongo/options"
 	"time"
 )
 
@@ -61,4 +66,82 @@ type Balance struct {
 	Amount       float64              `json:"amount,omitempty" bson:"amount"`
 	TokenBalance primitive.Decimal128 `json:"tokenBalance,omitempty" bson:"tokenBalance"`
 	Currency     string               `json:"currency,omitempty" bson:"currency"`
+}
+
+func (u *User) CollectionName() string {
+	return "users"
+}
+func (u *User) Saving() error {
+	u.UpdatedAt = util.TimeNow()
+	return nil
+}
+
+func (u *User) Creating() error {
+	u.CreatedAt = util.TimeNow()
+	return nil
+}
+
+func (u *User) GetByID(id primitive.ObjectID) error {
+	err := mgm.Coll(u).FindByID(id, u)
+	if err != nil {
+		return fmt.Errorf("get err while query User %s", err.Error())
+	}
+	return nil
+}
+
+func (u *User) GetUserByEmail(email string) error {
+	coll := mgm.Coll(u)
+	err := coll.First(bson.M{"email": email}, u)
+	if err != nil {
+		return errors.Errorf("get err while query user. Err: %s", err.Error())
+	}
+	return nil
+}
+
+func (u *User) GetUserByPublicKey(publicKey string) error {
+	coll := mgm.Coll(u)
+	err := coll.First(bson.M{"publicKey": publicKey}, u)
+	return err
+}
+
+func (u *User) UpdateUserLastLoginTime() error {
+	u.LastLoginTime = time.Now().Unix()
+	opt := &options.UpdateOptions{}
+	opt.SetUpsert(false)
+	err := mgm.Coll(u).Update(u, opt)
+	return err
+}
+
+func (u *User) PublicKeyLoginProcess() error {
+	u.VerificationCode = ""
+	u.LastLoginTime = time.Now().Unix()
+	if u.ReferenceCode == "" {
+		codeGenerator, _ := util.NewSonyflake()
+		code, _ := codeGenerator.GenerateCode()
+		u.ReferenceCode = code
+	}
+	opt := &options.UpdateOptions{}
+	opt.SetUpsert(false)
+	err := mgm.Coll(u).Update(u, opt)
+	return err
+}
+
+func (u *User) Update() error {
+	opt := &options.UpdateOptions{}
+	opt.SetUpsert(false)
+	return mgm.Coll(u).Update(u, opt)
+}
+
+func ListUsers(skip, limit int64, filter interface{}, order interface{}) (users []User, err error) {
+	users = []User{}
+	opt := &options.FindOptions{}
+	opt.SetSkip(skip)
+	opt.SetLimit(limit)
+	opt.SetSort(order)
+	err = mgm.Coll(&User{}).SimpleFind(&users, filter, opt)
+	return
+}
+
+func CountUsers(filter interface{}) (count int64, err error) {
+	return mgm.Coll(&User{}).CountDocuments(mgm.Ctx(), filter)
 }
