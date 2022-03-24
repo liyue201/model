@@ -7,16 +7,16 @@ package model
 import (
 	"time"
 
-	"go.mongodb.org/mongo-driver/bson/primitive"
-
 	"github.com/Overealityio/overeality-server-model/util"
+	"github.com/kamva/mgm/v3"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
 const PointConfigTableName = "point_config"
 
 // PointConfig 积分计算的配置信息
 type PointConfig struct {
-	ID                primitive.ObjectID `json:"id,omitempty" bson:"_id"`
+	mgm.IDField       `json:",inline" bson:",inline"`
 	SocialShareFactor int                `json:"socialShareFactor" bson:"socialShareFactor"`
 	InvitationFactor  int                `json:"invitationFactor" bson:"invitationFactor"`
 	LastUpdatedBy     primitive.ObjectID `json:"lastUpdatedBy,omitempty" bson:"lastUpdatedBy"`
@@ -25,8 +25,6 @@ type PointConfig struct {
 }
 
 func (m *PointConfig) TableName() string { return PointConfigTableName }
-
-func (m *PointConfig) GetID() primitive.ObjectID { return m.ID }
 
 func (m *PointConfig) Validate() error {
 	return nil
