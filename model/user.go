@@ -10,10 +10,11 @@ import (
 	"time"
 )
 
+// User 用户信息
 type User struct {
 	// ID
 	mgm.IDField `json:",inline" bson:",inline"`
-	Roles []primitive.ObjectID `json:"roles,omitempty" bson:"roles"`
+	Roles       []primitive.ObjectID `json:"roles,omitempty" bson:"roles"`
 	//Name                   string               `json:"name,omitempty" bson:"name"`
 	Email                  string               `json:"email,omitempty" bson:"email"`
 	Password               string               `json:"password,omitempty" bson:"password"`
@@ -33,7 +34,16 @@ type User struct {
 	Nfts                   []OldNft             `json:"nfts,omitempty" bson:"nfts"`
 	Balances               []Balance            `json:"balances,omitempty" bson:"balances"`
 	Guesses                []Guess              `json:"guesses,omitempty" bson:"guesses"`
-	LastLoginTime          int64                `json:"lastLoginTime" bson:"lastLoginTime"`
+	// 用户基于积分的总排名
+	PointRank uint64 `json:"pointRank"`
+	// 用户总积分
+	TotalPoints float64 `json:"totalPoints"`
+	// 用户因邀请好友而获得的积分
+	InvitationPoints float64 `json:"invitationPoints"`
+	// 用户积分等级
+	PointLevel uint64 `json:"pointLevel"`
+	// 最近一次登录时间
+	LastLoginTime int64 `json:"lastLoginTime" bson:"lastLoginTime"`
 	// 创建时间
 	CreatedAt *time.Time `json:"createdAt,omitempty" bson:"createdAt"`
 	// 最近一次更新时间
