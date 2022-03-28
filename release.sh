@@ -35,3 +35,8 @@ echo ${VERSION} >${SCRIPTPATH}/version.txt
 log "publish overeality-server-model v${VERSION}"
 git tag -a "v${VERSION}" -m "publish overeality-server-model v${VERSION}"
 git push -u origin v${VERSION}
+
+cd ${SCRIPTPATH}
+git add .
+git commit -m"[chore] update version.txt for new tag v${VERSION}"
+git push

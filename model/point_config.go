@@ -12,7 +12,7 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
-const PointConfigTableName = "point_config"
+const PointConfigTableName = "point_configs"
 
 // PointConfig 积分计算的配置信息
 type PointConfig struct {
