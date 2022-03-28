@@ -30,8 +30,8 @@ fi
 VERSION="${MAJOR}.${MINOR}.${PATCH}"
 echo ${VERSION} >${SCRIPTPATH}/version.txt
 
-# git add .
-# git commit -m "prepare to publish v${VERSION}"
+git add .
+git commit -m "prepare to publish v${VERSION}"
 log "publish overeality-server-model v${VERSION}"
 git tag -a "v${VERSION}" -m "publish overeality-server-model v${VERSION}"
 git push -u origin v${VERSION}
