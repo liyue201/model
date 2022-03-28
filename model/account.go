@@ -26,6 +26,10 @@ type TokenAccount struct {
 	CreatedAt   *time.Time         `json:"createdAt,omitempty" bson:"createdAt"`
 	// mandatory: true. update time of this token.
 	UpdatedAt   *time.Time         `json:"updatedAt,omitempty" bson:"updatedAt"`
+	// mandatory: false. only used for DId Card NFT.
+	DIdCardEquipped bool  `json:"dIdCardEquipped,omitempty" bson:"dIdCardEquipped"`
+	// mandatory: false. The equipped token ability.
+	DIdCardEquippedAbility *DIdCardAbility `json:"dIdCardEquippedAbility,omitempty" bson:"dIdCardEquippedAbility"`
 }
 
 func (a *TokenAccount) CollectionName() string {
