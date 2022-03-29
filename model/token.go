@@ -82,6 +82,8 @@ type NftMetaData struct {
 	// mandatory: false. only used for ERC721
 	Owner	 *primitive.ObjectID `json:"owner,omitempty" bson:"owner"`
 	// mandatory: false. only used for Did Card NFT
+	DIdLevel	 int `json:"dIdLevel,omitempty" bson:"dIdLevel"`
+	// mandatory: false. only used for Did Card NFT
 	DIdCardAbilities []*DIdCardAbility `json:"dIdCardAbilities,omitempty" bson:"dIdCardAbilities"`
 	// mandatory: false. for extra metadata, store json in value if needed.
 	ExtraData   map[string]string  `json:"extraData,omitempty" bson:"extraData"`

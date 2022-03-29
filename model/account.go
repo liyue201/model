@@ -32,6 +32,20 @@ type TokenAccount struct {
 	DIdCardEquipped bool  `json:"dIdCardEquipped,omitempty" bson:"dIdCardEquipped"`
 	// mandatory: false. The equipped token ability.
 	DIdCardEquippedAbility *DIdCardAbility `json:"dIdCardEquippedAbility,omitempty" bson:"dIdCardEquippedAbility"`
+	// mandatory: false. balance of listed token. use for ERC721/ERC1155/DId.
+	Listed int `json:"listed,omitempty" bson:"listed"`
+	// mandatory: true if listed.
+	ListedPrice *ListedPrice `json:"listedPrice,omitempty" bson:"listedPrice"`
+}
+
+// ListedPrice @dev Currently we can only use OFuel. May become a list of tokens later
+type ListedPrice struct {
+	// mandatory: true. Token Id.
+	TokenId primitive.ObjectID `json:"tokenId,omitempty" bson:"tokenId"`
+	// mandatory: true. Token currency. for ERC20/1155
+	Currency  *string               `json:"currency,omitempty" bson:"currency"`
+	// mandatory: true. Price.
+	Price primitive.Decimal128 `json:"price,omitempty" bson:"price"`
 }
 
 func (a *TokenAccount) CollectionName() string {
