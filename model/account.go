@@ -30,6 +30,8 @@ type TokenAccount struct {
 	DIdCard     bool  `json:"dIdCard,omitempty" bson:"dIdCard"`
 	// mandatory: false. only used for DId Card NFT.
 	DIdCardEquipped bool  `json:"dIdCardEquipped,omitempty" bson:"dIdCardEquipped"`
+	// mandatory: false. only used for DId Card NFT.
+	DIdCardEquippedAbilityIndex int  `json:"dIdCardEquippedIndex,omitempty" bson:"dIdCardEquippedIndex"`
 	// mandatory: false. The equipped token ability.
 	DIdCardEquippedAbility *DIdCardAbility `json:"dIdCardEquippedAbility,omitempty" bson:"dIdCardEquippedAbility"`
 	// mandatory: false. balance of listed token. use for ERC721/ERC1155/DId.
