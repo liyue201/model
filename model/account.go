@@ -27,13 +27,13 @@ type TokenAccount struct {
 	// mandatory: true. update time of this token.
 	UpdatedAt   *time.Time         `json:"updatedAt,omitempty" bson:"updatedAt"`
 	// mandatory: false. If the NFT can be equipped in DId Card.
-	DIdCard     bool  `json:"dIdCard,omitempty" bson:"dIdCard"`
+	SmartNft     bool  `json:"smartNft,omitempty" bson:"smartNft"`
 	// mandatory: false. only used for DId Card NFT.
-	DIdCardEquipped bool  `json:"dIdCardEquipped,omitempty" bson:"dIdCardEquipped"`
+	SmartNftEquipped bool  `json:"smartNftEquipped,omitempty" bson:"smartNftEquipped"`
 	// mandatory: false. only used for DId Card NFT.
-	DIdCardEquippedAbilityIndex int  `json:"dIdCardEquippedIndex,omitempty" bson:"dIdCardEquippedIndex"`
+	SmartNftEquippedAbilityIndex int  `json:"smartNftEquippedIndex,omitempty" bson:"smartNftEquippedIndex"`
 	// mandatory: false. The equipped token ability.
-	DIdCardEquippedAbility *DIdCardAbility `json:"dIdCardEquippedAbility,omitempty" bson:"dIdCardEquippedAbility"`
+	SmartNftEquippedAbility *SmartNftAbility `json:"smartNftEquippedAbility,omitempty" bson:"smartNftEquippedAbility"`
 	// mandatory: false. balance of listed token. use for ERC721/ERC1155/DId.
 	Listed int `json:"listed,omitempty" bson:"listed"`
 	// mandatory: true if listed.

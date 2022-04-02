@@ -16,20 +16,20 @@ const(
 	TokenStandardERC1155 TokenStandardEnum = "ERC1155"
 )
 
-type DIdCardAbilityEnum string
+type SmartNftAbilityEnum string
 const (
-	// DIdCardAbilityUserInvitation receives an additional X% of invitation points for inviting new users
-	DIdCardAbilityUserInvitation DIdCardAbilityEnum = "UserInvitation"
-	// DIdCardAbilityCelebritySupport receives an additional X% of support points for a community when supporting for its celebrities
-	DIdCardAbilityCelebritySupport DIdCardAbilityEnum = "CelebritySupport"
-	// DIdCardAbilityCelebrityShare receives an additional X% of share points for a community when supporting for its celebrities.
-	DIdCardAbilityCelebrityShare DIdCardAbilityEnum = "CelebrityShare"
-	// DIdCardAbilityEventOFuel receives an additional X% of OFuels from events hosted by Overeality
-	DIdCardAbilityEventOFuel DIdCardAbilityEnum = "EventOFuel"
+	// SmartNftAbilityUserInvitation receives an additional X% of invitation points for inviting new users
+	SmartNftAbilityUserInvitation SmartNftAbilityEnum = "UserInvitation"
+	// SmartNftAbilityCelebritySupport receives an additional X% of support points for a community when supporting for its celebrities
+	SmartNftAbilityCelebritySupport SmartNftAbilityEnum = "CelebritySupport"
+	// SmartNftAbilityCelebrityShare receives an additional X% of share points for a community when supporting for its celebrities.
+	SmartNftAbilityCelebrityShare SmartNftAbilityEnum = "CelebrityShare"
+	// SmartNftAbilityEventOFuel receives an additional X% of OFuels from events hosted by Overeality
+	SmartNftAbilityEventOFuel SmartNftAbilityEnum = "EventOFuel"
 )
 
-type DIdCardAbility struct {
-	Ability    DIdCardAbilityEnum `json:"ability,omitempty" bson:"ability"`
+type SmartNftAbility struct {
+	Ability    SmartNftAbilityEnum `json:"ability,omitempty" bson:"ability"`
 	Percentage int                `json:"percentage,omitempty" bson:"percentage"`
 }
 
@@ -49,7 +49,7 @@ type Token struct {
 	// mandatory: true. Token Standard
 	Standard     TokenStandardEnum    `json:"standard,omitempty" bson:"standard"`
 	// mandatory: false. If the NFT can be equipped in DId Card.
-	DIdCard     bool  `json:"dIdCard,omitempty" bson:"dIdCard"`
+	SmartNft     bool  `json:"smartNft,omitempty" bson:"smartNft"`
 	// mandatory: false. if the token is bind with a community.
 	CommunityId *primitive.ObjectID `json:"communityId,omitempty" bson:"communityId"`
 	// mandatory: true. Decimals exponent for token transaction. 0 for ERC721 and ERC1155
@@ -82,9 +82,9 @@ type NftMetaData struct {
 	// mandatory: false. only used for ERC721
 	Owner	 *primitive.ObjectID `json:"owner,omitempty" bson:"owner"`
 	// mandatory: false. only used for Did Card NFT
-	DIdLevel	 int `json:"dIdLevel,omitempty" bson:"dIdLevel"`
+	LeastLevel	 int `json:"leastLevel,omitempty" bson:"leastLevel"`
 	// mandatory: false. only used for Did Card NFT
-	DIdCardAbilities []*DIdCardAbility `json:"dIdCardAbilities,omitempty" bson:"dIdCardAbilities"`
+	SmartNftAbilities []*SmartNftAbility `json:"smartNftAbilities,omitempty" bson:"smartNftAbilities"`
 	// mandatory: false. for extra metadata, store json in value if needed.
 	ExtraData   map[string]string  `json:"extraData,omitempty" bson:"extraData"`
 }
