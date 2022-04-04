@@ -36,13 +36,13 @@ type User struct {
 	Balances               []Balance            `json:"balances,omitempty" bson:"balances"`
 	Guesses                []Guess              `json:"guesses,omitempty" bson:"guesses"`
 	// 用户基于积分的总排名
-	PointRank uint64 `json:"pointRank"`
+	PointRank uint64 `json:"pointRank" bson:"pointRank"`
 	// 用户总积分
-	TotalPoints float64 `json:"totalPoints"`
+	TotalPoints float64 `json:"totalPoints" bson:"totalPoints"`
 	// 用户因邀请好友而获得的积分
-	InvitationPoints float64 `json:"invitationPoints"`
+	InvitationPoints float64 `json:"invitationPoints" bson:"invitationPoints"`
 	// 用户积分等级
-	PointLevel uint64 `json:"pointLevel"`
+	PointLevel uint64 `json:"pointLevel" bson:"pointLevel"`
 	// 最近一次登录时间
 	LastLoginTime int64 `json:"lastLoginTime" bson:"lastLoginTime"`
 	// 创建时间
