@@ -25,6 +25,10 @@ type PointConfig struct {
 	// 但在这个之前，需要把从前的积分计算好放入User表中，相当于对User表中TotalPoints等字段进行初始化
 	// 这个Collection里存入的这个字段，是表征这个初始化过程是否已执行
 	UserPointCalculated bool `json:"userPointCalculated" bson:"userPointCalculated"`
+	// 是否正在重新计算用户积分的排名
+	IsCalculatingUserPointRank bool `json:"isCalculatingUserPointRank" bson:"isCalculatingUserPointRank"`
+	// 用户积分的排名最近一次更新的时间
+	UserPointRankLastUpdatedAt int64 `json:"userPointRankLastUpdatedAt" bson:"userPointRankLastUpdatedAt"`
 	// 该配置最后一次是由谁更新的
 	LastUpdatedBy primitive.ObjectID `json:"lastUpdatedBy,omitempty" bson:"lastUpdatedBy"`
 	// 记录创建时间
