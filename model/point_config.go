@@ -33,7 +33,7 @@ type PointConfig struct {
 	UpdatedAt *time.Time `json:"updatedAt,omitempty" bson:"updatedAt"`
 }
 
-func (m *PointConfig) TableName() string { return PointConfigTableName }
+func (m *PointConfig) CollectionName() string { return PointConfigTableName }
 
 func (m *PointConfig) Validate() error {
 	return nil
