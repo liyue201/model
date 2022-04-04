@@ -16,12 +16,21 @@ const PointConfigTableName = "point_configs"
 
 // PointConfig 积分计算的配置信息
 type PointConfig struct {
-	mgm.IDField       `json:",inline" bson:",inline"`
-	SocialShareFactor int                `json:"socialShareFactor" bson:"socialShareFactor"`
-	InvitationFactor  int                `json:"invitationFactor" bson:"invitationFactor"`
-	LastUpdatedBy     primitive.ObjectID `json:"lastUpdatedBy,omitempty" bson:"lastUpdatedBy"`
-	CreatedAt         *time.Time         `json:"createdAt,omitempty" bson:"createdAt"`
-	UpdatedAt         *time.Time         `json:"updatedAt,omitempty" bson:"updatedAt"`
+	mgm.IDField `json:",inline" bson:",inline"`
+	// 社交分享的基础分数
+	SocialShareFactor int `json:"socialShareFactor" bson:"socialShareFactor"`
+	// 邀请一个用户加入Overeality时获得的积分
+	InvitationFactor int `json:"invitationFactor" bson:"invitationFactor"`
+	// 2022年4月4号，我们决定把用户总积分信息在有邀请用户或社交分享等活动发生时候，做实时更新，结果保存至User表的TotalPoint字段
+	// 但在这个之前，需要把从前的积分计算好放入User表中，相当于对User表中TotalPoints等字段进行初始化
+	// 这个Collection里存入的这个字段，是表征这个初始化过程是否已执行
+	UserPointCalculated bool `json:"userPointCalculated" bson:"userPointCalculated"`
+	// 该配置最后一次是由谁更新的
+	LastUpdatedBy primitive.ObjectID `json:"lastUpdatedBy,omitempty" bson:"lastUpdatedBy"`
+	// 记录创建时间
+	CreatedAt *time.Time `json:"createdAt,omitempty" bson:"createdAt"`
+	// 记录更新时间
+	UpdatedAt *time.Time `json:"updatedAt,omitempty" bson:"updatedAt"`
 }
 
 func (m *PointConfig) TableName() string { return PointConfigTableName }
@@ -37,8 +46,12 @@ func (m *PointConfig) WithDefaults() *PointConfig {
 	if m.InvitationFactor == 0 {
 		m.InvitationFactor = 5
 	}
-	m.CreatedAt = util.TimeNow()
-	m.UpdatedAt = util.TimeNow()
+	if m.CreatedAt == nil {
+		m.CreatedAt = util.TimeNow()
+	}
+	if m.UpdatedAt == nil {
+		m.UpdatedAt = util.TimeNow()
+	}
 	return m
 }
 

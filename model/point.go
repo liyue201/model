@@ -2,17 +2,18 @@ package model
 
 import (
 	"context"
+	"time"
+
 	"github.com/kamva/mgm/v3"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo/options"
-	"time"
 )
 
 type Point struct {
-	mgm.IDField `json:",inline" bson:",inline"`
+	mgm.IDField         `json:",inline" bson:",inline"`
 	UserId              primitive.ObjectID `json:"userId,omitempty" bson:"userId"`
 	InfluencerId        primitive.ObjectID `json:"influencerId,omitempty" bson:"influencerId"`
-	Points              uint64             `json:"points" bson:"points"`
+	Points              float64            `json:"points" bson:"points"`
 	GuessPoint          uint64             `json:"guessPoint" bson:"guessPoint"`
 	ClickActivities     []string           `json:"clickActivities,omitempty" bson:"clickActivities"`
 	FacebookActivities  []string           `json:"facebookActivities,omitempty" bson:"facebookActivities"`

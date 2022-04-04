@@ -6,6 +6,7 @@ package util
 
 import (
 	"fmt"
+
 	"github.com/pkg/errors"
 	"github.com/sony/sonyflake"
 )

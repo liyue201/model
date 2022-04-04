@@ -2,10 +2,11 @@ package model
 
 import (
 	"context"
+	"time"
+
 	"github.com/kamva/mgm/v3"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo/options"
-	"time"
 )
 
 type Community struct {

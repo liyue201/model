@@ -2,17 +2,18 @@ package model
 
 import (
 	"context"
+	
 	"github.com/kamva/mgm/v3"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 type Network struct {
-	mgm.IDField  `json:",inline" bson:",inline"`
+	mgm.IDField `json:",inline" bson:",inline"`
 	// mandatory: true. Network name.
-	Name 	string `json:"name,omitempty" bson:"name"`
+	Name string `json:"name,omitempty" bson:"name"`
 	// mandatory: false. Network rpc url.
-	RpcUrl  string `json:"rpcUrl,omitempty" bson:"rpcUrl"`
+	RpcUrl string `json:"rpcUrl,omitempty" bson:"rpcUrl"`
 }
 
 func (n *Network) CollectionName() string {

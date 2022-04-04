@@ -2,12 +2,13 @@ package model
 
 import (
 	"context"
+	"time"
+
 	"github.com/Overealityio/overeality-server-model/util"
 	"github.com/kamva/mgm/v3"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo/options"
-	"time"
 )
 
 // User 用户信息
