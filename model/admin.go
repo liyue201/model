@@ -5,6 +5,8 @@
 package model
 
 import (
+	"context"
+
 	"github.com/kamva/mgm/v3"
 	"github.com/pkg/errors"
 	"go.mongodb.org/mongo-driver/bson"
@@ -14,6 +16,7 @@ import (
 type Admin struct {
 	mgm.IDField `json:",inline" bson:",inline"`
 	*User       `json:",inline" bson:",inline"`
+	UserId      primitive.ObjectID   `json:"userId" bson:"userId"`
 	AdminRoles  []primitive.ObjectID `json:"adminRoles" bson:"adminRoles"`
 }
 
@@ -27,4 +30,18 @@ func (a *Admin) GetByEmail(email string) error {
 		return errors.Errorf("GetByEmail %s failed: %v", email, err.Error())
 	}
 	return nil
+}
+
+func (a *Admin) GetByUserId(ctx context.Context, userId primitive.ObjectID) (err error) {
+	err = mgm.Coll(a).FindOne(ctx, bson.M{"userId": userId}).Decode(a)
+	return
+}
+
+func (a *Admin) ImportFromUser(user *User) (err error) {
+	a.IDField = mgm.IDField{ID: primitive.NewObjectID()}
+	a.User = user
+	a.UserId = user.ID
+	a.AdminRoles = []primitive.ObjectID{}
+	err = mgm.Coll(a).Create(a)
+	return
 }
