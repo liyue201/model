@@ -35,6 +35,8 @@ type User struct {
 	Nfts                   []OldNft             `json:"nfts,omitempty" bson:"nfts"`
 	Balances               []Balance            `json:"balances,omitempty" bson:"balances"`
 	Guesses                []Guess              `json:"guesses,omitempty" bson:"guesses"`
+	// 是否为系统管理员
+	IsAdmin bool `json:"isAdmin" bson:"isAdmin"`
 	// 用户基于积分的总排名
 	PointRank uint64 `json:"pointRank" bson:"pointRank"`
 	// 用户总积分
