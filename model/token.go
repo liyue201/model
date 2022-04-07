@@ -33,6 +33,8 @@ const (
 type SmartNftAbility struct {
 	Ability    SmartNftAbilityEnum `json:"ability,omitempty" bson:"ability"`
 	Percentage int                 `json:"percentage,omitempty" bson:"percentage"`
+	IconUri    string              `json:"iconUri,omitempty" bson:"iconUri"`
+	Description string             `json:"description,omitempty" bson:"description"`
 }
 
 type Token struct {
