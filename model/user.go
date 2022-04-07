@@ -37,6 +37,8 @@ type User struct {
 	Guesses                []Guess              `json:"guesses,omitempty" bson:"guesses"`
 	// 是否为系统管理员
 	IsAdmin bool `json:"isAdmin" bson:"isAdmin"`
+	// 管理员角色
+	AdminRoles []primitive.ObjectID `json:"adminRoles" bson:"adminRoles"`
 	// 用户基于积分的总排名
 	PointRank uint64 `json:"pointRank" bson:"pointRank"`
 	// 用户总积分
