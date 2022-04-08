@@ -12,6 +12,7 @@ import (
 type Community struct {
 	mgm.IDField  `json:",inline" bson:",inline"`
 	Name         string               `json:"name,omitempty" bson:"name"`
+	Avatar       Image                `json:"avatar,omitempty" bson:"avatar"`
 	IntroContent string               `json:"introContent,omitempty" bson:"introContent"`
 	IntroImages  []Image              `json:"introImages,omitempty" bson:"introImages"`
 	Influencers  []primitive.ObjectID `json:"influencers,omitempty" bson:"influencers"`
