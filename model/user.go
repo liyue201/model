@@ -82,6 +82,12 @@ type Balance struct {
 	Currency     string               `json:"currency,omitempty" bson:"currency"`
 }
 
+type OldBalance struct {
+	TokenType string  `json:"tokenType,omitempty" bson:"tokenType"`
+	Amount    float64 `json:"amount,omitempty" bson:"amount"`
+	Currency  string  `json:"currency,omitempty" bson:"currency"`
+}
+
 func (u *User) CollectionName() string {
 	return "users"
 }
