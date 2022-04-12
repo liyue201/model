@@ -47,20 +47,22 @@ type PointSource uint
 
 const (
 	PointSourceInvitation             PointSource = 1
-	PointSourceActivityClick          PointSource = 100
+	PointSourceActivityClickSupport   PointSource = 100
 	PointSourceActivityShareFacebook  PointSource = 101
 	PointSourceActivityShareInstagram PointSource = 102
 	PointSourceActivityShareTwitter   PointSource = 103
 )
 
 type PointDetail struct {
-	mgm.IDField  `json:",inline" bson:",inline"`
-	UserId       primitive.ObjectID `json:"userId,omitempty" bson:"userId"`
-	Source       PointSource        `json:"source,omitempty" bson:"source"`
-	PointAwarded float64            `json:"pointAwarded" bson:"pointAwarded"`
-	BaseFactor   float64            `json:"baseFactor" bson:"baseFactor"`
-	NFTFactors   []SmartNftAbility  `json:"nftFactors" bson:"nftFactors"`
-	CreatedAt    *time.Time         `json:"createdAt,omitempty" bson:"created_at"`
+	mgm.IDField `json:",inline" bson:",inline"`
+	UserId      primitive.ObjectID `json:"userId,omitempty" bson:"userId"`
+	Source      PointSource        `json:"source,omitempty" bson:"source"`
+	// Source为社区社交活动时为InfluencerId，Invitation时为受邀请人的ID
+	RelatedId    *primitive.ObjectID `json:"influencerId,omitempty" bson:"influencerId"`
+	PointAwarded float64             `json:"pointAwarded" bson:"pointAwarded"`
+	BaseFactor   float64             `json:"baseFactor" bson:"baseFactor"`
+	NFTFactors   []SmartNftAbility   `json:"nftFactors" bson:"nftFactors"`
+	CreatedAt    *time.Time          `json:"createdAt,omitempty" bson:"created_at"`
 }
 
 func (p *PointDetail) CollectionName() string {
