@@ -40,3 +40,29 @@ func ListPoints(ctx context.Context, skip, limit int64, filter interface{}, orde
 func CountPoints(filter interface{}) (count int64, err error) {
 	return mgm.Coll(&Point{}).CountDocuments(mgm.Ctx(), filter)
 }
+
+////////////////////////////////////////////////////////////////////////////////
+
+type PointSource uint
+
+const (
+	PointSourceInvitation             PointSource = 1
+	PointSourceActivityClick          PointSource = 100
+	PointSourceActivityShareFacebook  PointSource = 101
+	PointSourceActivityShareInstagram PointSource = 102
+	PointSourceActivityShareTwitter   PointSource = 103
+)
+
+type PointDetail struct {
+	mgm.IDField  `json:",inline" bson:",inline"`
+	UserId       primitive.ObjectID `json:"userId,omitempty" bson:"userId"`
+	Source       PointSource        `json:"source,omitempty" bson:"source"`
+	PointAwarded float64            `json:"pointAwarded" bson:"pointAwarded"`
+	BaseFactor   float64            `json:"baseFactor" bson:"baseFactor"`
+	NFTFactors   []SmartNftAbility  `json:"nftFactors" bson:"nftFactors"`
+	CreatedAt    *time.Time         `json:"createdAt,omitempty" bson:"created_at"`
+}
+
+func (p *PointDetail) CollectionName() string {
+	return "point_details"
+}
