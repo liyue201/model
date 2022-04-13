@@ -53,16 +53,23 @@ const (
 	PointSourceActivityShareTwitter   PointSource = 103
 )
 
+// PointDetail 积分明细
 type PointDetail struct {
 	mgm.IDField `json:",inline" bson:",inline"`
-	UserId      primitive.ObjectID `json:"userId,omitempty" bson:"userId"`
-	Source      PointSource        `json:"source,omitempty" bson:"source"`
+	// 谁的积分
+	UserId primitive.ObjectID `json:"userId,omitempty" bson:"userId"`
+	// 积分获取来源
+	Source PointSource `json:"source,omitempty" bson:"source"`
 	// Source为社区社交活动时为InfluencerId，Invitation时为受邀请人的ID
-	RelatedId    *primitive.ObjectID `json:"influencerId,omitempty" bson:"influencerId"`
-	PointAwarded float64             `json:"pointAwarded" bson:"pointAwarded"`
-	BaseFactor   float64             `json:"baseFactor" bson:"baseFactor"`
-	NFTFactors   []SmartNftAbility   `json:"nftFactors" bson:"nftFactors"`
-	CreatedAt    *time.Time          `json:"createdAt,omitempty" bson:"created_at"`
+	RelatedId *primitive.ObjectID `json:"influencerId,omitempty" bson:"influencerId"`
+	// 此次获得的分数
+	PointAwarded float64 `json:"pointAwarded" bson:"pointAwarded"`
+	// 基础分数
+	BaseFactor float64 `json:"baseFactor" bson:"baseFactor"`
+	// NFT装备的放大系数
+	NFTFactors []SmartNftAbility `json:"nftFactors" bson:"nftFactors"`
+	// 创建时间
+	CreatedAt *time.Time `json:"createdAt,omitempty" bson:"created_at"`
 }
 
 func (p *PointDetail) CollectionName() string {
