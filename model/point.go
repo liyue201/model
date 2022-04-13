@@ -61,7 +61,7 @@ type PointDetail struct {
 	// 积分获取来源
 	Source PointSource `json:"source,omitempty" bson:"source"`
 	// Source为社区社交活动时为InfluencerId，Invitation时为受邀请人的ID
-	RelatedId *primitive.ObjectID `json:"influencerId,omitempty" bson:"influencerId"`
+	RelatedId *primitive.ObjectID `json:"relatedId,omitempty" bson:"relatedId"`
 	// 此次获得的分数
 	PointAwarded float64 `json:"pointAwarded" bson:"pointAwarded"`
 	// 基础分数
