@@ -26,22 +26,24 @@ type User struct {
 	// 用户密码
 	Password string `json:"password,omitempty" bson:"password"`
 	// metamask的Public Key
-	PublicKey              string               `json:"publicKey,omitempty" bson:"publicKey"`
-	SignedMessage          string               `json:"signedMessage,omitempty" bson:"signedMessage"`
-	InvitationCode         string               `json:"invitationCode,omitempty" bson:"invitationCode"`
-	ReferenceCode          string               `json:"referenceCode" bson:"referenceCode"`
-	ReferenceCodeUsedCount uint64               `json:"referenceCodeUsedCount,omitempty" bson:"referenceCodeUsedCount"`
-	ReferencedBy           *primitive.ObjectID  `json:"referencedBy,omitempty" bson:"referencedBy"`
-	ReferencedRank         uint64               `json:"referencedRank,omitempty" bson:"referencedRank"`
-	FollowCommunities      []primitive.ObjectID `json:"followCommunities,omitempty" bson:"followCommunities"`
-	FavoriteCommunities    []primitive.ObjectID `json:"favoriteCommunities,omitempty" bson:"favoriteCommunities"`
-	LikePosts              []primitive.ObjectID `json:"likePosts,omitempty" bson:"likePosts"`
-	Status                 uint64               `json:"status,omitempty" bson:"status"`
-	VerificationCode       string               `json:"verificationCode,omitempty" bson:"verificationCode"`
-	PasswordResetCode      string               `json:"passwordResetCode,omitempty" bson:"passwordResetCode"`
-	Nfts                   []OldNft             `json:"nfts,omitempty" bson:"nfts"`
-	Balances               []Balance            `json:"balances,omitempty" bson:"balances"`
-	Guesses                []Guess              `json:"guesses,omitempty" bson:"guesses"`
+	PublicKey string `json:"publicKey,omitempty" bson:"publicKey"`
+	// 修改PublicKey时的验证码
+	PublicKeyUpdateVerificationCode string               `json:"publicKeyUpdateVerificationCode,omitempty"  bson:"publicKeyUpdateVerificationCode"`
+	SignedMessage                   string               `json:"signedMessage,omitempty" bson:"signedMessage"`
+	InvitationCode                  string               `json:"invitationCode,omitempty" bson:"invitationCode"`
+	ReferenceCode                   string               `json:"referenceCode" bson:"referenceCode"`
+	ReferenceCodeUsedCount          uint64               `json:"referenceCodeUsedCount,omitempty" bson:"referenceCodeUsedCount"`
+	ReferencedBy                    *primitive.ObjectID  `json:"referencedBy,omitempty" bson:"referencedBy"`
+	ReferencedRank                  uint64               `json:"referencedRank,omitempty" bson:"referencedRank"`
+	FollowCommunities               []primitive.ObjectID `json:"followCommunities,omitempty" bson:"followCommunities"`
+	FavoriteCommunities             []primitive.ObjectID `json:"favoriteCommunities,omitempty" bson:"favoriteCommunities"`
+	LikePosts                       []primitive.ObjectID `json:"likePosts,omitempty" bson:"likePosts"`
+	Status                          uint64               `json:"status,omitempty" bson:"status"`
+	VerificationCode                string               `json:"verificationCode,omitempty" bson:"verificationCode"`
+	PasswordResetCode               string               `json:"passwordResetCode,omitempty" bson:"passwordResetCode"`
+	Nfts                            []OldNft             `json:"nfts,omitempty" bson:"nfts"`
+	Balances                        []Balance            `json:"balances,omitempty" bson:"balances"`
+	Guesses                         []Guess              `json:"guesses,omitempty" bson:"guesses"`
 	// 是否为系统管理员
 	IsAdmin bool `json:"isAdmin" bson:"isAdmin"`
 	// 管理员角色
