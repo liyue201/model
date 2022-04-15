@@ -15,10 +15,17 @@ import (
 type User struct {
 	// ID
 	mgm.IDField `json:",inline" bson:",inline"`
-	Roles       []primitive.ObjectID `json:"roles,omitempty" bson:"roles"`
-	//Name                   string               `json:"name,omitempty" bson:"name"`
-	Email                  string               `json:"email,omitempty" bson:"email"`
-	Password               string               `json:"password,omitempty" bson:"password"`
+	// 角色列表，目前应该已经没用了
+	Roles []primitive.ObjectID `json:"roles,omitempty" bson:"roles"`
+	// 用户名
+	Name string `json:"name,omitempty" bson:"name"`
+	// 简介
+	Description string `json:"description,omitempty" bson:"description"`
+	// 用户邮箱
+	Email string `json:"email,omitempty" bson:"email"`
+	// 用户密码
+	Password string `json:"password,omitempty" bson:"password"`
+	// metamask的Public Key
 	PublicKey              string               `json:"publicKey,omitempty" bson:"publicKey"`
 	SignedMessage          string               `json:"signedMessage,omitempty" bson:"signedMessage"`
 	InvitationCode         string               `json:"invitationCode,omitempty" bson:"invitationCode"`
