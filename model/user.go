@@ -110,6 +110,10 @@ func (u *User) Creating() error {
 	return nil
 }
 
+func (u *User) Validate() error {
+	return nil
+}
+
 func (u *User) GetByID(ctx context.Context, id primitive.ObjectID) error {
 	err := mgm.Coll(u).FindByIDWithCtx(ctx, id, u)
 	return err
