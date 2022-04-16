@@ -17,6 +17,7 @@ type Community struct {
 	IntroContent string               `json:"introContent,omitempty" bson:"introContent"`
 	IntroImages  []Image              `json:"introImages,omitempty" bson:"introImages"`
 	Influencers  []primitive.ObjectID `json:"influencers,omitempty" bson:"influencers"`
+	Private      bool                 `json:"private,omitempty" bson:"private"`
 	CreatedAt    *time.Time           `json:"createdAt,omitempty" bson:"createdAt"`
 	UpdatedAt    *time.Time           `json:"lastUpdatedAt,omitempty" bson:"last_updated_at"`
 }
