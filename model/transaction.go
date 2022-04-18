@@ -41,6 +41,10 @@ type Transaction struct {
 	States []*BalanceState `json:"states,omitempty" bson:"states"`
 }
 
+func (m *Transaction) Validate() error {
+	return nil
+}
+
 type TokenTransfer struct {
 	// @dev Before transaction move to blockchain, this is mandatory.
 	// mandatory: false. from user id if user is stored in mongo
@@ -60,6 +64,10 @@ type TokenTransfer struct {
 	Value primitive.Decimal128 `json:"value,omitempty" bson:"value"`
 }
 
+func (m *TokenTransfer) Validate() error {
+	return nil
+}
+
 type BalanceState struct {
 	// mandatory: false. user id if user is stored in mongo
 	UserId *primitive.ObjectID `json:"userId,omitempty" bson:"userId"`
@@ -72,6 +80,10 @@ type BalanceState struct {
 	After primitive.Decimal128 `json:"after,omitempty" bson:"after"`
 	// mandatory: true. Id for token stored in mongodb
 	Token primitive.ObjectID `json:"token,omitempty" bson:"token"`
+}
+
+func (m *BalanceState) Validate() error {
+	return nil
 }
 
 func ListTransactions(ctx context.Context, skip, limit int64, filter interface{}, order interface{}) ([]*Transaction, error) {

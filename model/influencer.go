@@ -35,6 +35,10 @@ type Influencer struct {
 	UpdatedAt   *time.Time   `json:"lastUpdatedAt,omitempty" bson:"last_updated_at"`
 }
 
+func (c *Influencer) Validate() error {
+	return nil
+}
+
 type GuessImage struct {
 	Uri           string     `json:"uri,omitempty" bson:"uri"`
 	RevealedAfter *time.Time `json:"revealedAfter,omitempty" bson:"revealedAfter"`

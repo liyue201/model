@@ -35,6 +35,10 @@ func (c *Community) CollectionName() string {
 	return "communities"
 }
 
+func (c *Community) Validate() error {
+	return nil
+}
+
 func ListCommunities(ctx context.Context, skip, limit int64, filter interface{}, order interface{}) ([]*Community, error) {
 	var cs []*Community
 	opt := &options.FindOptions{}

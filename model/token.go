@@ -70,6 +70,10 @@ type Token struct {
 	UpdatedAt *time.Time `json:"updatedAt,omitempty" bson:"updatedAt"`
 }
 
+func (m *Token) Validate() error {
+	return nil
+}
+
 type NftMetaData struct {
 	// mandatory: false. NFT title.
 	Title string `json:"title,omitempty" bson:"title"`
@@ -107,6 +111,6 @@ func CountTokens(filter interface{}) (count int64, err error) {
 	return mgm.Coll(&Token{}).CountDocuments(mgm.Ctx(), filter)
 }
 
-func (t *Token) CollectionName() string {
+func (m *Token) CollectionName() string {
 	return "tokens"
 }

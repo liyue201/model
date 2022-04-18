@@ -41,6 +41,14 @@ type TokenAccount struct {
 	ListedPrice *ListedPrice `json:"listedPrice,omitempty" bson:"listedPrice"`
 }
 
+func (a *TokenAccount) Validate() error {
+	return nil
+}
+
+func (a *TokenAccount) CollectionName() string {
+	return "token_accounts"
+}
+
 // ListedPrice @dev Currently we can only use OFuel. May become a list of tokens later
 type ListedPrice struct {
 	// mandatory: true. Token Id.
@@ -51,8 +59,8 @@ type ListedPrice struct {
 	Price primitive.Decimal128 `json:"price,omitempty" bson:"price"`
 }
 
-func (a *TokenAccount) CollectionName() string {
-	return "token_accounts"
+func (a *ListedPrice) Validate() error {
+	return nil
 }
 
 func ListTokenAccounts(ctx context.Context, skip, limit int64, filter interface{}, order interface{}) ([]*TokenAccount, error) {

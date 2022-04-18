@@ -18,3 +18,7 @@ type NftCounter struct {
 	// mandatory: true.
 	UpdatedAt *time.Time `json:"updatedAt,omitempty" bson:"updatedAt"`
 }
+
+func (m *NftCounter) Validate() error {
+	return nil
+}

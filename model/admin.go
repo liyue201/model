@@ -13,11 +13,16 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
+// Admin @Deprecated
 type Admin struct {
 	mgm.IDField `json:",inline" bson:",inline"`
 	*User       `json:",inline" bson:",inline"`
 	UserId      primitive.ObjectID   `json:"userId" bson:"userId"`
 	AdminRoles  []primitive.ObjectID `json:"adminRoles" bson:"adminRoles"`
+}
+
+func (a *Admin) Validate() error {
+	return nil
 }
 
 func (a *Admin) CollectionName() string {

@@ -23,7 +23,11 @@ type Point struct {
 	UpdatedAt           *time.Time         `json:"lastUpdatedAt,omitempty" bson:"last_updated_at"`
 }
 
-func (p *Point) CollectionName() string {
+func (m *Point) Validate() error {
+	return nil
+}
+
+func (m *Point) CollectionName() string {
 	return "points"
 }
 
@@ -76,6 +80,10 @@ type PointDetail struct {
 	CreatedAt *time.Time `json:"createdAt,omitempty" bson:"created_at"`
 }
 
-func (p *PointDetail) CollectionName() string {
+func (m *PointDetail) CollectionName() string {
 	return "point_details"
+}
+
+func (m *PointDetail) Validate() error {
+	return nil
 }

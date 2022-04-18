@@ -20,6 +20,10 @@ func (n *Network) CollectionName() string {
 	return "networks"
 }
 
+func (n *Network) Validate() error {
+	return nil
+}
+
 func (n *Network) GetById(ctx context.Context, id primitive.ObjectID) error {
 	err := mgm.Coll(n).FindByIDWithCtx(ctx, id, n)
 	return err
