@@ -39,6 +39,8 @@ type Transaction struct {
 	BatchId *primitive.ObjectID `json:"batchId,omitempty" bson:"BatchId"`
 	// mandatory: true. Related balance changes.
 	States []*BalanceState `json:"states,omitempty" bson:"states"`
+	// mandatory: false. Error Message from chain block transaction receipt.
+	Error string `json:"error,omitempty" bson:"error"`
 }
 
 func (m *Transaction) Validate() error {
