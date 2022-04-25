@@ -32,7 +32,7 @@ type TokenAccount struct {
 	// mandatory: false. only used for DId Card NFT.
 	SmartNftEquipped bool `json:"smartNftEquipped,omitempty" bson:"smartNftEquipped"`
 	// mandatory: false. only used for DId Card NFT.
-	SmartNftEquippedAbilityIndex int `json:"smartNftEquippedIndex,omitempty" bson:"smartNftEquippedIndex"`
+	SmartNftEquippedAbilityIndex *int `json:"smartNftEquippedIndex,omitempty" bson:"smartNftEquippedIndex"`
 	// mandatory: false. The equipped token ability.
 	SmartNftEquippedAbility *SmartNftAbility `json:"smartNftEquippedAbility,omitempty" bson:"smartNftEquippedAbility"`
 	// mandatory: false. balance of listed token. use for ERC721/ERC1155/DId.
