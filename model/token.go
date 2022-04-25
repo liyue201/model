@@ -21,13 +21,17 @@ type SmartNftAbilityEnum string
 
 const (
 	// SmartNftAbilityUserInvitation receives an additional X% of invitation points for inviting new users
-	SmartNftAbilityUserInvitation SmartNftAbilityEnum = "UserInvitation"
+	SmartNftAbilityUserInvitation SmartNftAbilityEnum = "Invitation Point"
 	// SmartNftAbilityCelebritySupport receives an additional X% of support points for a community when supporting for its celebrities
-	SmartNftAbilityCelebritySupport SmartNftAbilityEnum = "CelebritySupport"
+	SmartNftAbilityCelebritySupport SmartNftAbilityEnum = "Support Point"
 	// SmartNftAbilityCelebrityShare receives an additional X% of share points for a community when supporting for its celebrities.
-	SmartNftAbilityCelebrityShare SmartNftAbilityEnum = "CelebrityShare"
+	SmartNftAbilityCelebrityShare SmartNftAbilityEnum = "Share Point"
 	// SmartNftAbilityEventOFuel receives an additional X% of OFuels from events hosted by Overeality
-	SmartNftAbilityEventOFuel SmartNftAbilityEnum = "EventOFuel"
+	SmartNftAbilityEventOFuel SmartNftAbilityEnum = "Event Reward"
+	// SmartNftAbilityRaffleReward receives additional X% weekly raffle rewards when you become the winner of the raffle
+	SmartNftAbilityRaffleReward SmartNftAbilityEnum = "Raffle Reward"
+	// SmartNftAbilityTokenInterests receives an additonal X% of all tokens that you currently own
+	SmartNftAbilityTokenInterests SmartNftAbilityEnum = "Token Interests"
 )
 
 type SmartNftAbility struct {
