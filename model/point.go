@@ -76,6 +76,8 @@ type PointDetail struct {
 	BaseFactor float64 `json:"baseFactor" bson:"baseFactor"`
 	// NFT装备的放大系数
 	NFTFactors []SmartNftAbility `json:"nftFactors" bson:"nftFactors"`
+	// 备注说明
+	Remark string `json:"remark" bson:"remark"`
 	// 创建时间
 	CreatedAt *time.Time `json:"createdAt,omitempty" bson:"created_at"`
 }
