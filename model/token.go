@@ -2,6 +2,8 @@ package model
 
 import (
 	"context"
+	"encoding/json"
+	"github.com/pkg/errors"
 	"time"
 
 	"github.com/kamva/mgm/v3"
@@ -17,22 +19,87 @@ const (
 	TokenStandardERC1155 TokenStandardEnum = "ERC1155"
 )
 
-type SmartNftAbilityEnum string
+
+type SmartNftAbilityEnum uint8
 
 const (
-	// SmartNftAbilityUserInvitation receives an additional X% of invitation points for inviting new users
-	SmartNftAbilityUserInvitation SmartNftAbilityEnum = "Invitation Point"
-	// SmartNftAbilityCelebritySupport receives an additional X% of support points for a community when supporting for its celebrities
-	SmartNftAbilityCelebritySupport SmartNftAbilityEnum = "Support Point"
-	// SmartNftAbilityCelebrityShare receives an additional X% of share points for a community when supporting for its celebrities.
-	SmartNftAbilityCelebrityShare SmartNftAbilityEnum = "Share Point"
-	// SmartNftAbilityEventOFuel receives an additional X% of OFuels from events hosted by Overeality
-	SmartNftAbilityEventOFuel SmartNftAbilityEnum = "Event Reward"
-	// SmartNftAbilityRaffleReward receives additional X% weekly raffle rewards when you become the winner of the raffle
-	SmartNftAbilityRaffleReward SmartNftAbilityEnum = "Raffle Reward"
-	// SmartNftAbilityTokenInterests receives an additonal X% of all tokens that you currently own
-	SmartNftAbilityTokenInterests SmartNftAbilityEnum = "Token Interests"
+	SmartNftAbilityUserInvitation SmartNftAbilityEnum = iota
+	SmartNftAbilityCelebritySupport
+	SmartNftAbilityCelebrityShare
+	SmartNftAbilityEventOFuel
+	SmartNftAbilityRaffleReward
+	SmartNftAbilityTokenInterests
 )
+
+var SmartNftAbilitiesMap = map[SmartNftAbilityEnum]string {
+	// SmartNftAbilityUserInvitation receives an additional X% of invitation points for inviting new users
+	SmartNftAbilityUserInvitation:"Invitation Point",
+	// SmartNftAbilityCelebritySupport receives an additional X% of support points for a community when supporting for its celebrities.
+	SmartNftAbilityCelebritySupport: "Support Point",
+	// SmartNftAbilityCelebrityShare receives an additional X% of share points for a community when supporting for its celebrities.
+	SmartNftAbilityCelebrityShare:"Share Point",
+	// SmartNftAbilityEventOFuel receives an additional X% of OFuels from events hosted by Overeality
+	SmartNftAbilityEventOFuel:  "Event Reward",
+	// SmartNftAbilityRaffleReward receives additional X% weekly raffle rewards when you become the winner of the raffle
+	SmartNftAbilityRaffleReward: "Raffle Reward",
+	// SmartNftAbilityTokenInterests receives an additional X% of all tokens that you currently own
+	SmartNftAbilityTokenInterests: "Token Interests",
+}
+
+func (s SmartNftAbilityEnum) String() string {
+	return SmartNftAbilitiesMap[s]
+}
+
+func (sa *SmartNftAbility) MarshalJSON() ([]byte, error) {
+	type Alias SmartNftAbility
+	return json.Marshal(&struct {
+		Ability string `json:"ability"`
+		*Alias
+	}{
+		Ability:sa.Ability.String(),
+		Alias: (*Alias)(sa),
+	})
+}
+
+func (sa *SmartNftAbility) UnmarshalJSON(data []byte) error {
+	type Alias SmartNftAbility
+	aux := &struct {
+		Ability string `json:"ability"`
+		*Alias
+	}{
+		Alias :(*Alias)(sa),
+	}
+	if err := json.Unmarshal(data, &aux); err != nil {
+		return err
+	}
+	ab, err := NewSmartNftAbilityEnumFromString(aux.Ability)
+	if err != nil {
+		return err
+	}
+	sa.Ability = ab
+	return nil
+}
+
+
+func NewSmartNftAbilityEnumFromString(strValue string) (SmartNftAbilityEnum, error) {
+	switch strValue {
+	default:
+		return SmartNftAbilityUserInvitation, errors.New("Invalid SmartNft Ability Enum")
+	case "Invitation Point":
+		return SmartNftAbilityUserInvitation, nil
+	case "Support Point":
+		return SmartNftAbilityCelebritySupport, nil
+	case "Share Point":
+		return SmartNftAbilityCelebrityShare, nil
+	case "Event Reward":
+		return SmartNftAbilityEventOFuel, nil
+	case "Raffle Reward":
+		return SmartNftAbilityRaffleReward, nil
+	case "Token Interests":
+		return SmartNftAbilityTokenInterests, nil
+	}
+}
+
 
 type SmartNftAbility struct {
 	Ability    SmartNftAbilityEnum `json:"ability,omitempty" bson:"ability"`
