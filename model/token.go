@@ -3,10 +3,11 @@ package model
 import (
 	"context"
 	"encoding/json"
-	"github.com/pkg/errors"
+	"fmt"
 	"time"
 
 	"github.com/kamva/mgm/v3"
+	"github.com/pkg/errors"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
@@ -19,7 +20,6 @@ const (
 	TokenStandardERC1155 TokenStandardEnum = "ERC1155"
 )
 
-
 type SmartNftAbilityEnum uint8
 
 const (
@@ -31,15 +31,15 @@ const (
 	SmartNftAbilityTokenInterests
 )
 
-var SmartNftAbilitiesMap = map[SmartNftAbilityEnum]string {
+var SmartNftAbilitiesMap = map[SmartNftAbilityEnum]string{
 	// SmartNftAbilityUserInvitation receives an additional X% of invitation points for inviting new users
-	SmartNftAbilityUserInvitation:"Invitation Point",
+	SmartNftAbilityUserInvitation: "Invitation Point",
 	// SmartNftAbilityCelebritySupport receives an additional X% of support points for a community when supporting for its celebrities.
 	SmartNftAbilityCelebritySupport: "Support Point",
 	// SmartNftAbilityCelebrityShare receives an additional X% of share points for a community when supporting for its celebrities.
-	SmartNftAbilityCelebrityShare:"Share Point",
+	SmartNftAbilityCelebrityShare: "Share Point",
 	// SmartNftAbilityEventOFuel receives an additional X% of OFuels from events hosted by Overeality
-	SmartNftAbilityEventOFuel:  "Event Reward",
+	SmartNftAbilityEventOFuel: "Event Reward",
 	// SmartNftAbilityRaffleReward receives additional X% weekly raffle rewards when you become the winner of the raffle
 	SmartNftAbilityRaffleReward: "Raffle Reward",
 	// SmartNftAbilityTokenInterests receives an additional X% of all tokens that you currently own
@@ -50,36 +50,9 @@ func (s SmartNftAbilityEnum) String() string {
 	return SmartNftAbilitiesMap[s]
 }
 
-func (sa *SmartNftAbility) MarshalJSON() ([]byte, error) {
-	type Alias SmartNftAbility
-	return json.Marshal(&struct {
-		Ability string `json:"ability"`
-		*Alias
-	}{
-		Ability:sa.Ability.String(),
-		Alias: (*Alias)(sa),
-	})
+func (s SmartNftAbilityEnum) IntValue() uint8 {
+	return uint8(s)
 }
-
-func (sa *SmartNftAbility) UnmarshalJSON(data []byte) error {
-	type Alias SmartNftAbility
-	aux := &struct {
-		Ability string `json:"ability"`
-		*Alias
-	}{
-		Alias :(*Alias)(sa),
-	}
-	if err := json.Unmarshal(data, &aux); err != nil {
-		return err
-	}
-	ab, err := NewSmartNftAbilityEnumFromString(aux.Ability)
-	if err != nil {
-		return err
-	}
-	sa.Ability = ab
-	return nil
-}
-
 
 func NewSmartNftAbilityEnumFromString(strValue string) (SmartNftAbilityEnum, error) {
 	switch strValue {
@@ -100,12 +73,45 @@ func NewSmartNftAbilityEnumFromString(strValue string) (SmartNftAbilityEnum, err
 	}
 }
 
-
 type SmartNftAbility struct {
-	Ability    SmartNftAbilityEnum `json:"ability,omitempty" bson:"ability"`
-	Percentage int                 `json:"percentage,omitempty" bson:"percentage"`
-	IconUri    string              `json:"iconUri,omitempty" bson:"iconUri"`
-	Description string             `json:"description,omitempty" bson:"description"`
+	Ability     SmartNftAbilityEnum `json:"ability,omitempty" bson:"ability"`
+	Percentage  int                 `json:"percentage,omitempty" bson:"percentage"`
+	IconUri     string              `json:"iconUri,omitempty" bson:"iconUri"`
+	Description string              `json:"description,omitempty" bson:"description"`
+}
+
+func (m SmartNftAbility) String() string {
+	return fmt.Sprintf("%s(%d): %d", m.Ability.String(), m.Ability.IntValue(), m.Percentage)
+}
+
+func (m *SmartNftAbility) MarshalJSON() ([]byte, error) {
+	type Alias SmartNftAbility
+	return json.Marshal(&struct {
+		Ability string `json:"ability"`
+		*Alias
+	}{
+		Ability: m.Ability.String(),
+		Alias:   (*Alias)(m),
+	})
+}
+
+func (m *SmartNftAbility) UnmarshalJSON(data []byte) error {
+	type Alias SmartNftAbility
+	aux := &struct {
+		Ability string `json:"ability"`
+		*Alias
+	}{
+		Alias: (*Alias)(m),
+	}
+	if err := json.Unmarshal(data, &aux); err != nil {
+		return err
+	}
+	ab, err := NewSmartNftAbilityEnumFromString(aux.Ability)
+	if err != nil {
+		return err
+	}
+	m.Ability = ab
+	return nil
 }
 
 type Token struct {
