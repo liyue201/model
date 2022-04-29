@@ -9,6 +9,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
+// Point @Deprecated
 type Point struct {
 	mgm.IDField         `json:",inline" bson:",inline"`
 	UserId              primitive.ObjectID `json:"userId,omitempty" bson:"userId"`

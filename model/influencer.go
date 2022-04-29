@@ -27,7 +27,7 @@ type Influencer struct {
 	//Followers     []primitive.ObjectID `json:"followers,omitempty" bson:"followers"`
 	//FollowerCount uint64               `json:"followerCount,omitempty" bson:"followerCount"`
 	//Hots          uint64               `json:"hots,omitempty" bson:"hots"`
-	// 1: active 2: pending
+	// 名人状态. 1: active 2: pending
 	Status      uint64       `json:"status,omitempty" bson:"status"`
 	GuessImages []GuessImage `json:"guessImages,omitempty" bson:"guessImages"`
 	Roadmap     []string     `json:"roadmap,omitempty" bson:"roadmap"`
