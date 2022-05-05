@@ -51,13 +51,15 @@ func CountPoints(filter interface{}) (count int64, err error) {
 type PointSource uint
 
 const (
-	PointSourceInvitation             PointSource = 1
+	PointSourceInvitation PointSource = 1
+
 	PointSourceActivityClickSupport   PointSource = 100
 	PointSourceActivityShareFacebook  PointSource = 101
 	PointSourceActivityShareInstagram PointSource = 102
 	PointSourceActivityShareTwitter   PointSource = 103
 
-	PointSourceActivityAirDrop PointSource = 10000000
+	PointSourceActivityAirDrop         PointSource = 10000000
+	PointSourceActivityWithdrawAirDrop PointSource = 10000001
 )
 
 // PointDetail 积分明细
