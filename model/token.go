@@ -141,6 +141,8 @@ type Token struct {
 	FrozenSupply *primitive.Decimal128 `json:"frozenSupply,omitempty" bson:"frozenSupply"`
 	// mandatory: false. field only used for ERC721 and ERC1155
 	NftMetaData *NftMetaData `json:"nftMetaData,omitempty" bson:"nftMetaData"`
+	// mandatory: true. user id who created the token.
+	CreatedBy *primitive.ObjectID `json:"createdBy,omitempty" bson:"createdBy"`
 	// mandatory: true. create time of this token.
 	CreatedAt *time.Time `json:"createdAt,omitempty" bson:"createdAt"`
 	// mandatory: true. update time of this token.
