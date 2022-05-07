@@ -121,6 +121,8 @@ type Token struct {
 	ContractAddress *string `json:"contractAddress,omitempty" bson:"contractAddress"`
 	// mandatory: true. the token belong to which network
 	NetworkId primitive.ObjectID `json:"networkId,omitempty" bson:"networkId"`
+	// mandatory: false. contract id if the token is on-chain.
+	ContractId *primitive.ObjectID `json:"contractId,omitempty" bson:"contractId"`
 	// mandatory: false. field for ERC721 and ERC1155.
 	ContractTokenId int64 `json:"contractTokenId,omitempty" bson:"contractTokenId"`
 	// mandatory: true. Token name
