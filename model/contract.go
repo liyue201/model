@@ -24,6 +24,8 @@ type Contract struct {
 	DeployKey string 	`json:"deployKey" bson:"deployKey"`
 	// mandatory: false. contract owner public key
 	OwnerKey string 	`json:"ownerKey" bson:"ownerKey"`
+	// mandatory: false. user id who created the contract.
+	CreatedBy *primitive.ObjectID `json:"createdBy,omitempty" bson:"createdBy"`
 	// mandatory: false. time the contract is first deployed.
 	CreatedAt *time.Time 	`json:"createdAt,omitempty" bson:"createdAt"`
 	// mandatory: false. time the contract is last updated.
