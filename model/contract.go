@@ -10,6 +10,8 @@ import (
 
 type Contract struct {
 	mgm.IDField `json:",inline" bson:",inline"`
+	// mandatory: true. Contract name
+	Name string `json:"name" bson:"name"`
 	// mandatory: false. git repo if the contract is in OVR git
 	GitRepo string `json:"gitRepo" bson:"gitRepo"`
 	// mandatory: false. git repo release tag if the contract is in OVR git
@@ -24,6 +26,8 @@ type Contract struct {
 	DeployKey string 	`json:"deployKey" bson:"deployKey"`
 	// mandatory: false. contract owner public key
 	OwnerKey string 	`json:"ownerKey" bson:"ownerKey"`
+	// mandatory: false. Contract description
+	Description string `json:"description,omitempty" bson:"description"`
 	// mandatory: false. user id who created the contract.
 	CreatedBy *primitive.ObjectID `json:"createdBy,omitempty" bson:"createdBy"`
 	// mandatory: false. time the contract is first deployed.
