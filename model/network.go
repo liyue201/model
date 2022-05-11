@@ -14,6 +14,12 @@ type Network struct {
 	Name string `json:"name,omitempty" bson:"name"`
 	// mandatory: false. Network rpc url.
 	RpcUrl string `json:"rpcUrl,omitempty" bson:"rpcUrl"`
+	// mandatory: false. Network chain id.
+	ChainId int `json:"chainId,omitempty" bson:"chainId"`
+	// mandatory: false. Network chain currency symbol.
+	CurrencySymbol string  `json:"currencySymbol,omitempty" bson:"currencySymbol"`
+	// mandatory: false. Network chain block explorer url.
+	BlockExplorerURL  string  `json:"blockExplorerURL,omitempty" bson:"blockExplorerURL"`
 }
 
 func (n *Network) CollectionName() string {
