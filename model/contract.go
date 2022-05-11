@@ -20,6 +20,8 @@ type Contract struct {
 	GitCommitId string 	`json:"gitCommitId" bson:"gitCommitId"`
 	// mandatory: true. contract network id.
 	NetworkId primitive.ObjectID `json:"networkId,omitempty" bson:"networkId"`
+	// mandatory: true. Token Standard
+	Standard TokenStandardEnum `json:"standard,omitempty" bson:"standard"`
 	// mandatory: true. address of the contract.
 	ContractAddress string `json:"contractAddress" bson:"contractAddress"`
 	// mandatory: false. key used to deploy contract
