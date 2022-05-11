@@ -33,6 +33,8 @@ type Transaction struct {
 	Description string `json:"description,omitempty" bson:"description"`
 	// mandatory: true. Create time of this transaction
 	CreatedAt *time.Time `json:"createdAt,omitempty" bson:"createdAt"`
+	// mandatory: false. time the contract is last updated.
+	LastUpdatedAt *time.Time `json:"lastUpdatedAt,omitempty" bson:"LastUpdatedAt"`
 	// mandatory: true. transaction status
 	Status TransactionStatusEnum `json:"status,omitempty" bson:"status"`
 	// mandatory: false. If the transaction is made by operator uploading csv, batchId will be stored.
