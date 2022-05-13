@@ -30,4 +30,6 @@ type BinanceTransactionReceipt struct {
 	LogsBloom string `json:"logsBloom,omitempty" bson:"logsBloom"`
 	// Not sure what it is as of now
 	Type string `json:"type,omitempty" bson:"type"`
+	// If the transaction is still pending
+	Pending bool `json:"pending,omitempty" bson:"pending"`
 }
