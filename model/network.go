@@ -20,6 +20,8 @@ type Network struct {
 	CurrencySymbol string  `json:"currencySymbol,omitempty" bson:"currencySymbol"`
 	// mandatory: false. Network chain block explorer url.
 	BlockExplorerURL  string  `json:"blockExplorerURL,omitempty" bson:"blockExplorerURL"`
+	// mandatory: false. Network icon
+	IconUri     string              `json:"iconUri,omitempty" bson:"iconUri"`
 }
 
 func (n *Network) CollectionName() string {
