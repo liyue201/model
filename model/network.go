@@ -2,7 +2,7 @@ package model
 
 import (
 	"context"
-	
+
 	"github.com/kamva/mgm/v3"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo/options"
@@ -22,6 +22,16 @@ type Network struct {
 	BlockExplorerURL  string  `json:"blockExplorerURL,omitempty" bson:"blockExplorerURL"`
 	// mandatory: false. Network icon
 	IconUri     string              `json:"iconUri,omitempty" bson:"iconUri"`
+	// mandatory: false. If the network native token is self-defined ERC20
+	NativeTokenId *primitive.ObjectID `json:"nativeTokenId,omitempty" bson:"nativeTokenId"`
+	// mandatory: false. If the network is on chain, native currency is needed.
+	NativeCurrency *NativeCurrency  `json:"nativeCurrency,omitempty" bson:"nativeCurrency"`
+}
+
+type NativeCurrency struct {
+	Name string `json:"name"`
+	Symbol string `json:"symbol"`
+	Decimals uint `json:"decimals"`
 }
 
 func (n *Network) CollectionName() string {
