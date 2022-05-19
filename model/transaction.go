@@ -27,8 +27,10 @@ type Transaction struct {
 	TxnHash *string `json:"txnHash,omitempty" bson:"txnHash"`
 	// mandatory: ture. a batch of tokens(erc20/721/1155) transfer in this transaction
 	TokensTransferred []*TokenTransfer `json:"tokensTransferred,omitempty" bson:"tokensTransferred"`
-	// mandatory: true. OFuel token consumed for this transaction.
+	// mandatory: false. Deprecated. OFuel token consumed for this transaction.
 	GasFee *primitive.Decimal128 `json:"gasFee,omitempty" bson:"gasFee"`
+  // The amount of gas used by this specific transaction alone.
+  GasUsed int64 `json:"gasUsed,omitempty" bson:"gasUsed"`
 	// mandatory: false. description for this transaction
 	Description string `json:"description,omitempty" bson:"description"`
 	// mandatory: true. Create time of this transaction
