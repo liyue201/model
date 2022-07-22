@@ -26,6 +26,8 @@ type Network struct {
 	NativeTokenId *primitive.ObjectID `json:"nativeTokenId,omitempty" bson:"nativeTokenId"`
 	// mandatory: false. If the network is on chain, native currency is needed.
 	NativeCurrency *NativeCurrency  `json:"nativeCurrency,omitempty" bson:"nativeCurrency"`
+	//mandatory: false.  display order
+	Order int `json:"order,omitempty" bson:"order"`
 }
 
 type NativeCurrency struct {
